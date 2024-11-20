@@ -1,0 +1,14 @@
+.navMainContainer {
+    border-bottom: solid 1px rgba(90, 89, 89, 0.247);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding-inline: 20px;
+    justify-content: flex-end;
+    gap: 30px;
+    padding-top: 13px;
+}
+
+.navMainContainer>p {
+    font-family: "Inter";
+}

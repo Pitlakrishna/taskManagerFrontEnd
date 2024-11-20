@@ -1,0 +1,135 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --grayColor: rgba(164, 162, 162, 0.8);
+    --backgroundColor: rgba(225, 235, 245, .3)
+}
+
+body {
+    width: 100vw;
+    font-family: "Gudea", "Helvetica Neue", "HelveticaNeue-Light", Helvetica, Arial, sans-serif;
+    background-color: var(--backgroundColor)
+}
+
+.signUpContainer {
+    display: grid;
+    place-items: center;
+    max-width: 300px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+/* paragraph style */
+.signUpContainer>p {
+    font-size: 13px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.formControl {
+    width: 100%;
+    padding: 6px 13px;
+    border: 1px solid var(--backgroundColor);
+    border-radius: 5px;
+    outline: none;
+    margin: 8px 0;
+}
+
+.mt-n3 {
+    margin-top: -2px !important;
+}
+
+
+/* icons */
+.socialButton {
+    font-size: 22px !important;
+    margin-right: 50px;
+    text-align: center;
+    font-weight: 900;
+    margin-top: -6px;
+}
+
+.button {
+    height: 37px;
+    font-size: 15px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+/* input ::placeholder styles */
+input::placeholder {
+    /* color: ; */
+    font-weight: 100;
+    font-size: 15px;
+}
+
+/* button sign in with gooogle */
+.btn-primary {
+    background-color: #3f51b5;
+}
+
+.btn-danger {
+    background-color: #f44336;
+}
+
+/* downSide conditions Styls */
+.down_side_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* check box */
+
+.checkBox {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.checkBox label {
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.checkBox input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    border: 2px solid var(--grayColor);
+    align-self: center;
+}
+
+/* signup button */
+.SignUp_button {
+    width: 150px;
+    padding-block: 8px;
+    border-radius: 3px;
+    border: none;
+    background-color: black;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 200;
+    margin: auto;
+    margin-block: 20px;
+}
+
+/* Asking sign question */
+.signIn_Question {
+    font-size: .875rem;
+    margin-block-start: 20px;
+}
+
+.signIn_Question span {
+    font-weight: 700;
+}
+
+.signIn_Question_Link {
+    text-decoration: none;
+    color: #4BC0C0;
+}
