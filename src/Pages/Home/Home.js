@@ -2,12 +2,30 @@ import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../layout/LayoutsData'
 import { MessageContext } from "../../context"
 import { Empty } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [messgae, setMessage] = useState('')
     const { messageContent } = useContext(MessageContext)
+    const [token, setToken] = useState('')
 
+    let navigate = useNavigate()
 
+    useEffect(() => {
+        try {
+
+            const authData = localStorage.getItem("auth");
+            if (authData) {
+                const parsedAuth = JSON.parse(authData); // Parse the JSON string
+                setToken(parsedAuth.token); // Access the nested email
+            }
+            if (token = "") {
+                navigate("/signin")
+            }
+        } catch (error) {
+            navigate("/signin")
+        }
+    }, []);
 
     return (
         <Layout>

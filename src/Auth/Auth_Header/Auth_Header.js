@@ -6,10 +6,6 @@ import "./Auth_Header.css"
 const Auth_Header = () => {
     return (
         <div className='AuthContainer' >
-            <h4>
-                <span><SiSpeedypage /></span>
-                RiteFast
-            </h4>
         </div>
     )
 }

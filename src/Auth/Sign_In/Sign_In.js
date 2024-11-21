@@ -4,10 +4,11 @@ import { TiSocialFacebook } from "react-icons/ti";
 import { TiSocialGooglePlus } from "react-icons/ti";
 import "./Sign_In.css";
 import toast from 'react-hot-toast';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const SignIn = () => {
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         email: "",
@@ -30,6 +31,7 @@ const SignIn = () => {
             if (res && res.data.success) {
                 toast.success("Succesfully SignIn ...")
                 localStorage.setItem("auth", JSON.stringify(res.data))
+                navigate("/")
             } else {
 
             }

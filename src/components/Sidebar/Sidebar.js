@@ -20,7 +20,7 @@ const Sidebar = () => {
     const [selected, setSelected] = useState(null)
     const [name, setName] = useState('')
     const [message, setMessage] = useState("")
-    const [email, setEmail] = useState("ksai94064@gmail.com")
+    const [email, setEmail] = useState("")
     const [updatedName, setUpdatedName] = useState("")
     const [updateTask, setUpdateTask] = useState("")
     const [updatedMessage, setUpdatedMessage] = useState("")
@@ -56,8 +56,17 @@ const Sidebar = () => {
         }
     }
 
+    const getMail = () => {
+        const authData = localStorage.getItem("auth");
+        if (authData) {
+            const parsedAuth = JSON.parse(authData); // Parse the JSON string
+            setEmail(parsedAuth.user.email); // Access the nested email
+        }
+    }
+
     useEffect(() => {
         getAllTasks()
+        getMail()
     }, [])
 
     // handle Update

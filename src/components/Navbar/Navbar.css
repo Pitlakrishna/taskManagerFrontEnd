@@ -12,3 +12,7 @@
 .navMainContainer>p {
     font-family: "Inter";
 }
+
+.lagoutPara:hover {
+    cursor: pointer;
+}
