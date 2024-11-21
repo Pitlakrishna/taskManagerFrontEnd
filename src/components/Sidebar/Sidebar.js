@@ -20,7 +20,7 @@ const Sidebar = () => {
     const [selected, setSelected] = useState(null)
     const [name, setName] = useState('')
     const [message, setMessage] = useState("")
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState("ksai94064@gmail.com")
     const [updatedName, setUpdatedName] = useState("")
     const [updateTask, setUpdateTask] = useState("")
     const [updatedMessage, setUpdatedMessage] = useState("")
@@ -44,30 +44,39 @@ const Sidebar = () => {
         }
     }
 
-
     const getAllTasks = async () => {
         try {
-            const { data } = await axios.get(`https://backendtaskmanger.onrender.com/api/v1/task/getalltasks/${email}`)
+            console.log("Fetching tasks for email:", email); // Log email being used
+            const { data } = await axios.get(`https://backendtaskmanger.onrender.com/api/v1/task/getalltasks/${email}`);
+            console.log("API Response:", data); // Log API response
             if (data && data.success) {
-                setList(data)
+                setList(data);
+            } else {
+                toast.error("Failed to fetch tasks");
             }
         } catch (error) {
-            toast.error('Error in While fetching Tasks')
+            console.error(error);
+            toast.error("Error fetching tasks");
         }
-    }
+    };
 
     const getMail = () => {
         const authData = localStorage.getItem("auth");
         if (authData) {
-            const parsedAuth = JSON.parse(authData); // Parse the JSON string
-            setEmail(parsedAuth.user.email); // Access the nested email
+            const parsedAuth = JSON.parse(authData);
+            setEmail(parsedAuth?.user?.email || ""); // Ensure email is properly extracted
+        } else {
+            toast.error("User is not authenticated. Please sign in.");
         }
-    }
+    };
 
     useEffect(() => {
-        getAllTasks()
-        getMail()
-    }, [])
+        const fetchTasks = async () => {
+            await getMail();
+            await getAllTasks();
+        };
+        fetchTasks();
+    }, []);
 
     // handle Update
 
@@ -114,23 +123,26 @@ const Sidebar = () => {
         <div className='personMainContainer' style={{ width: "30vw", height: "93vh", backgroundColor: '#FFF' }}  >
             <div className="card-body cardBody"  >
                 <div className="list-group">
-                    {list.task?.map(c => (
+                    {list?.task?.length > 0 ? (
+                        list.task.map((c) => (
+                            <li key={c._id} onClick={() => handleClickViewMessage(c._id)}  >
+                                <a
+                                    className="list-group-item list-group-item-action "
+                                >
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">{c.task}</h5>
+                                        <small className='' style={{ fontSize: '10px', color: '#ac39ac' }} > <MdOutlineDeleteOutline size={20} className=' text-danger' onClick={() => handleDelete(c._id)} /> <CiEdit size={20} onClick={() => { setUpdateIsvisible(true); setUpdatedName(c.name); setUpdateTask(c.task); setSelected(c) }} className='me-1 text-primary' /> {moment(c?.createAt).fromNow()}</small>
+                                    </div>
+                                    <div className='d-flex justify-content-between '  >
+                                        <p className="mb-1" style={{ fontSize: '15px', fontFamily: 'Roboto', marginTop: '10px' }} >Assigned to : {c?.name}</p>
 
-                        <li key={c._id} onClick={() => handleClickViewMessage(c._id)}  >
-                            <a
-                                className="list-group-item list-group-item-action "
-                            >
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">{c.task}</h5>
-                                    <small className='' style={{ fontSize: '10px', color: '#ac39ac' }} > <MdOutlineDeleteOutline size={20} className=' text-danger' onClick={() => handleDelete(c._id)} /> <CiEdit size={20} onClick={() => { setUpdateIsvisible(true); setUpdatedName(c.name); setUpdateTask(c.task); setSelected(c) }} className='me-1 text-primary' /> {moment(c?.createAt).fromNow()}</small>
-                                </div>
-                                <div className='d-flex justify-content-between '  >
-                                    <p className="mb-1" style={{ fontSize: '15px', fontFamily: 'Roboto', marginTop: '10px' }} >Assigned to : {c?.name}</p>
-
-                                </div>
-                            </a>
-                        </li>
-                    ))}
+                                    </div>
+                                </a>
+                            </li>
+                        ))
+                    ) : (
+                        <p className='align-self-center' >No tasks available</p>
+                    )}
                 </div>
             </div>
             <div className="card-footer text-body-secondary" style={{ backgroundColor: 'transparent', border: 'none' }}  >
