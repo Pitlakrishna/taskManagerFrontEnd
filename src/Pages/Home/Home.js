@@ -12,20 +12,12 @@ const Home = () => {
     let navigate = useNavigate()
 
     useEffect(() => {
-        try {
-
-            const authData = localStorage.getItem("auth");
-            if (authData) {
-                const parsedAuth = JSON.parse(authData); // Parse the JSON string
-                setToken(parsedAuth.token); // Access the nested email
-            }
-            if (token = "") {
-                navigate("/signin")
-            }
-        } catch (error) {
-            navigate("/signin")
+        const storedToken = localStorage.getItem("token");
+        setToken(storedToken);
+        if (!storedToken) { // Check if the token is null or empty
+            navigate("/signin");
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <Layout>

@@ -31,6 +31,7 @@ const SignIn = () => {
             if (res && res.data.success) {
                 toast.success("Succesfully SignIn ...")
                 localStorage.setItem("auth", JSON.stringify(res.data))
+                localStorage.setItem("token", JSON.stringify(res.data.token))
                 navigate("/")
             } else {
 
